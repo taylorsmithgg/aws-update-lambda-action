@@ -29966,7 +29966,7 @@ async function run() {
         throw Error('stackname must be defined!')
     }
 
-    console.log(`Updating stack ${stackName}`)
+    console.log(`Updating stack ${stackname}`)
 
     await updateFunctions(stackName)
   } catch (error) {
