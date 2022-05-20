@@ -29968,7 +29968,7 @@ async function run() {
 
     console.log(`Updating stack ${stackname}`)
 
-    await updateFunctions(stackName)
+    await updateFunctions(stackname)
   } catch (error) {
     core.setFailed(error.message);
   }
