@@ -1,0 +1,13 @@
+name: 'AWS Update Lambda Action'
+description: 'Calls AWS SDK to invoke image update on lambdas'
+inputs:
+  stackName:  # id of input
+    description: 'Name of stack to update'
+    required: true
+    default: shopify-fulfillment-pipeline-dev
+outputs:
+  time: # output will be available to future steps
+    description: 'The current time after waiting'
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
