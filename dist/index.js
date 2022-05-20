@@ -29683,6 +29683,12 @@ async function filterTags(stackName){
 async function updateFunctions(stackName){
     const filteredTags = await filterTags(stackName)
 
+    if(filteredTags.length < 1){
+        throw Error(`No functions found for stack: ${stackName}`)
+    }
+
+    console.log(JSON.stringify(filteredTags, null, 2))
+
     return Promise.all(
         filteredTags
             .map(async ({arn}) => {
@@ -29960,7 +29966,8 @@ async function run() {
     // core.info((new Date()).toTimeString());
 
     // core.setOutput('time', new Date().toTimeString());
-    const stackname = core.getInput('stackname');
+    // const stackname = core.getInput('stackname');
+    const stackname = 'govyrl/shopify-fulfillment-pipeline'
 
     if(!stackname) {
         throw Error('stackname must be defined!')
@@ -29970,6 +29977,7 @@ async function run() {
 
     await updateFunctions(stackname)
   } catch (error) {
+    console.error(error)
     core.setFailed(error.message);
   }
 }
