@@ -29960,10 +29960,10 @@ async function run() {
     // core.info((new Date()).toTimeString());
 
     // core.setOutput('time', new Date().toTimeString());
-    const stackName = core.getInput('functionName');
+    const stackname = core.getInput('stackname');
 
-    if(!stackName) {
-        throw Error('stackName must be defined!')
+    if(!stackname) {
+        throw Error('stackname must be defined!')
     }
 
     console.log(`Updating stack ${stackName}`)
@@ -29975,6 +29975,7 @@ async function run() {
 }
 
 run();
+
 })();
 
 module.exports = __webpack_exports__;
