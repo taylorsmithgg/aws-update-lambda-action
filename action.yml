@@ -1,7 +1,7 @@
 name: 'AWS Update Lambda ImageURI Action'
 description: 'Calls AWS SDK to invoke image update on lambdas'
 inputs:
-  stackName:  # id of input
+  stackname:  # id of input
     description: 'Name of stack to update'
     required: true
     default: shopify-fulfillment-pipeline-dev
