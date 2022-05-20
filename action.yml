@@ -1,4 +1,4 @@
-name: 'AWS Update Lambda Action'
+name: 'AWS Update Lambda ImageURI Action'
 description: 'Calls AWS SDK to invoke image update on lambdas'
 inputs:
   stackName:  # id of input
