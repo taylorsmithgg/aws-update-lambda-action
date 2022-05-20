@@ -47,6 +47,12 @@ async function filterTags(stackName){
 async function updateFunctions(stackName){
     const filteredTags = await filterTags(stackName)
 
+    if(filteredTags.length < 1){
+        throw Error(`No functions found for stack: ${stackName}`)
+    }
+
+    console.log(JSON.stringify(filteredTags, null, 2))
+
     return Promise.all(
         filteredTags
             .map(async ({arn}) => {

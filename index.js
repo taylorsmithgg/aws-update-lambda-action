@@ -11,7 +11,8 @@ async function run() {
     // core.info((new Date()).toTimeString());
 
     // core.setOutput('time', new Date().toTimeString());
-    const stackname = core.getInput('stackname');
+    // const stackname = core.getInput('stackname');
+    const stackname = 'govyrl/shopify-fulfillment-pipeline'
 
     if(!stackname) {
         throw Error('stackname must be defined!')
@@ -21,6 +22,7 @@ async function run() {
 
     await updateFunctions(stackname)
   } catch (error) {
+    console.error(error)
     core.setFailed(error.message);
   }
 }
