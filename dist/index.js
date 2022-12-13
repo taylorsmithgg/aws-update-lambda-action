@@ -29689,7 +29689,7 @@ async function updateFunctions(stackName){
 
     const {AWS_ROLE_ARN, AWS_REGION} = process.env;
 
-    const AWS_ACCOUNT = AWS_ROLE_ARN.split('')[4]
+    const AWS_ACCOUNT = AWS_ROLE_ARN.split(':')[4]
 
     const imageUriPrefix = `${AWS_ACCOUNT}.dkr.ecr.${AWS_REGION}.amazonaws.com/govyrl/`
 
