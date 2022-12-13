@@ -29687,14 +29687,18 @@ async function updateFunctions(stackName){
         throw Error(`No functions found for stack: ${stackName}`)
     }
 
-    console.log(JSON.stringify(filteredTags, null, 2))
+    const {AWS_ROLE_ARN, AWS_REGION} = process.env;
+
+    const AWS_ACCOUNT = AWS_ROLE_ARN.split('')[4]
+
+    const imageUriPrefix = `${AWS_ACCOUNT}.dkr.ecr.${AWS_REGION}.amazonaws.com/govyrl/`
 
     return Promise.all(
         filteredTags
-            .map(async ({arn}) => {
+            .map(async ({arn, tags}) => {
                 const {} = await client.send(new UpdateFunctionCodeCommand({
                     FunctionName: arn,
-                    ImageUri: `422025336571.dkr.ecr.us-west-2.amazonaws.com/govyrl/${stackName.split('-dev')[0]}-${arn.split(':')[6].split('-dev')[0]}:latest`
+                    ImageUri: `${imageUriPrefix}${tags['Name'].split('-dev')[0]}:latest`
                 }))
 
                 return {arn}
