@@ -62,9 +62,11 @@ async function updateFunctions(stackName){
     return Promise.all(
         filteredTags
             .map(async ({arn, tags}) => {
+                const name = arn.split('function:')[1].split('-dev')[0]
+
                 const {} = await client.send(new UpdateFunctionCodeCommand({
                     FunctionName: arn,
-                    ImageUri: `${imageUriPrefix}${arn.split('function:')[1]}:latest`
+                    ImageUri: `${imageUriPrefix}${name}:latest`
                 }))
 
                 return {arn}
