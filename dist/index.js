@@ -29693,12 +29693,14 @@ async function updateFunctions(stackName){
 
     const imageUriPrefix = `${AWS_ACCOUNT}.dkr.ecr.${AWS_REGION}.amazonaws.com/govyrl/`
 
+    console.log(`Image Prefix: ${imageUriPrefix}`)
+
     return Promise.all(
         filteredTags
             .map(async ({arn, tags}) => {
                 const {} = await client.send(new UpdateFunctionCodeCommand({
                     FunctionName: arn,
-                    ImageUri: `${imageUriPrefix}${tags['Name'].split('-dev')[0]}:latest`
+                    ImageUri: `${imageUriPrefix}${arn.split('function:')[1]}:latest`
                 }))
 
                 return {arn}
