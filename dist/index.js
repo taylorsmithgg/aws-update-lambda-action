@@ -29683,6 +29683,12 @@ async function filterTags(stackName){
 async function updateFunctions(stackName){
     const filteredTags = await filterTags(stackName)
 
+
+    // set env to stackname split last index
+    const env = stackName.split('-').pop()
+
+    console.log(`Environment: ${env}`)
+
     if(filteredTags.length < 1){
         throw Error(`No functions found for stack: ${stackName}`)
     }
@@ -29698,11 +29704,14 @@ async function updateFunctions(stackName){
     return Promise.all(
         filteredTags
             .map(async ({arn, tags}) => {
-                const name = arn.split('function:')[1].split('-dev')[0]
+                const name = arn.split('function:')[1].split(`-${env}`)[0]
+
+                // if env is dev, use latest else use env
+                const tag = env === 'dev' ? 'latest' : env
 
                 const {} = await client.send(new UpdateFunctionCodeCommand({
                     FunctionName: arn,
-                    ImageUri: `${imageUriPrefix}${name}:latest`
+                    ImageUri: `${imageUriPrefix}${name}:${tag}`
                 }))
 
                 return {arn}
