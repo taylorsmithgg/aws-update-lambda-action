@@ -51,6 +51,9 @@ async function updateFunctions(stackName){
     // set env to stackname split last index
     const env = stackName.split('-').pop()
 
+    // remove -${env} from stackName
+    const stackSplit = stackName.split(`-${env}`)[0]
+
     console.log(`Environment: ${env}`)
 
     if(filteredTags.length < 1){
@@ -75,7 +78,7 @@ async function updateFunctions(stackName){
 
                 const {} = await client.send(new UpdateFunctionCodeCommand({
                     FunctionName: arn,
-                    ImageUri: `${imageUriPrefix}${name}:${tag}`
+                    ImageUri: `${imageUriPrefix}${stackSplit}-${name}:${tag}`
                 }))
 
                 return {arn}
